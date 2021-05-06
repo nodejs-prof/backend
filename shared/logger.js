@@ -17,7 +17,6 @@ const LOG_LEVEL_PRIORITY = {
 };
 
 const Logger = (functionName, user, methodName = "", passedInUser = "") => {
-
   const log = (severity, message, ...args) => {
     let passedInSeverity = severity;
     if (!passedInSeverity) {
@@ -40,7 +39,6 @@ const Logger = (functionName, user, methodName = "", passedInUser = "") => {
     }
     const consoleString = `[${passedInSeverity}] ${methodExecuted} @ ${passedInUser} | ${message}`;
     _logMessage(consoleString, args);
-
   };
 
   const _logMessage = (consoleString, ...args) => {
