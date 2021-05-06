@@ -9,6 +9,10 @@ var app = express();
 const { routers } = require("./router/router");
 routers(app);
 
+const exceptionHandler = require("./shared/exceptions/GlobalExceptionHandler")
+  .default;
+app.use(exceptionHandler);
+
 const { Logger, SEVERITY } = require("./shared/logger");
 app.listen(process.env.PORT, () => {
   Logger("app", "").log(
