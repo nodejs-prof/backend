@@ -1,4 +1,4 @@
-import { auditMethod } from "../shared/utils/UserAudits";
+import { auditMethod } from "../shared/user_audits";
 
 // @auditMethod()
 

@@ -1,5 +1,6 @@
 import { handler } from "../services/handler";
 import { Userservice } from "../services/user_service";
+import { Logger, SEVERITY } from "../shared/logger";
 
 // Display list of all Authors.
 // const author_list = handler((req, res, X_HADER) => {
@@ -8,6 +9,10 @@ import { Userservice } from "../services/user_service";
 // });
 
 const author_list = (req, res) => {
+
+  const logger = new Logger("Authors list", {});
+  logger.log(SEVERITY.DEBUG, "hello world");
+
   const userService = new Userservice();
   userService.registerUser();
   res.send("NOT IMPLEMENTED: Author list");
