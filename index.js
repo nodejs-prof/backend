@@ -1,18 +1,20 @@
 import express from "express";
 import { routers } from "./router/router";
 
-const arg = process.env.ENV;
 
-console.log(arg);
+
+const arg = process.env.ENV || "dev";
+
+
 
 const path = `./shared/env-${arg}.json`;
-
-console.log("new path " + path);
 require("dotenv-json-complex")({ path });
 
-var app = express();
+const { syncTables } = require("./models");
 
-console.log(process.env.public_api_key);
+syncTables();
+
+var app = express();
 
 routers(app);
 
