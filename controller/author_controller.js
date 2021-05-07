@@ -8,16 +8,16 @@ import { Logger, SEVERITY } from "../shared/logger";
 //   console.log("X_HADER :::::::: " + X_HADER);
 //   res.send("NOT IMPLEMENTED: Author list");
 // });
-
+const logger = new Logger("AuthorController", {});
 const author_list = (req, res) => {
   // const logger = new Logger("Authors list", {});
-  // logger.log(SEVERITY.DEBUG, "hello world");
+  logger.log(SEVERITY.DEBUG, "hello world");
 
   // const userService = new Userservice();
-  // userService.registerUser();
+  Userservice.registerUser();
   // res.send("NOT IMPLEMENTED: Author list");
 
-  throw new NotFoundException("Resource not found");
+  // throw new NotFoundException("Resource not found");
 };
 
 // Display detail page for a specific Author.
