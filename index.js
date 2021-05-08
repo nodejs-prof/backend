@@ -1,19 +1,29 @@
 import express from "express";
+import { db } from "./models";
 
 const arg = process.env.ENV || "dev";
 
 const path = `./shared/env-${arg}.json`;
+
 require("dotenv-json-complex")({ path });
 
 var app = express();
+
 const { routers } = require("./router/router");
 routers(app);
+
 
 const exceptionHandler = require("./shared/exceptions/GlobalExceptionHandler")
   .default;
 app.use(exceptionHandler);
 
 const { Logger, SEVERITY } = require("./shared/logger");
+
+
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
+
 app.listen(process.env.PORT, () => {
   Logger("app", "").log(
     SEVERITY.INFO,
