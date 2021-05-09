@@ -20,11 +20,9 @@ app.use(exceptionHandler);
 
 const { Logger, SEVERITY } = require("./shared/logger");
 
-const db = require("./models/index").default;
+const { initializeDatabase } = require("./models/index");
 
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+initializeDatabase();
 
 app.listen(process.env.PORT, () => {
   Logger("app", "").log(

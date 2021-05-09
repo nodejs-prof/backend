@@ -21,8 +21,15 @@ const db = {
   ...ModelInitialization(sequelize, Sequelize),
 };
 
-export const getModel = (modelType) => {
-  return db[modelType];
+const MODELS = {
+  USER : db.user,
+  ROLE : db.role
+}
+
+const initializeDatabase = () => {
+  db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
+  });
 };
 
-export default db;
+export { initializeDatabase, MODELS };

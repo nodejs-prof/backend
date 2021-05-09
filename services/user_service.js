@@ -1,10 +1,17 @@
 // import { auditMethod } from "../shared/user_audits";
 
-import { getModel } from "../models";
+import { MODELS } from "../models";
 import { Repository } from "../repositories/repository";
 
-const registerUser = (req, res) => {
-  Repository.create(getModel("user"), { ...req });
+const registerUser = async (req) => {
+  const model = MODELS.USER;
+  const body = req.body;
+  const { name, email } = body;
+  const request = {
+    name,
+    email
+  }
+  return await Repository.create(model, request);
 };
 
 const Userservice = {

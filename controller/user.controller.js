@@ -1,12 +1,12 @@
 import { Userservice } from "../services/user_service";
-import { GeneralError } from "../shared/exceptions/GeneralError";
+import { Logger, SEVERITY } from "../shared/logger";
 
-const createUser = (req, res) => {
-  console.log("requestingggggggg");
-  console.log(req.body);
-  // console.log(JSON.stringify(req));
-  Userservice.registerUser(req.body, res);
-  
+const logger = new Logger("User Controller", {});
+
+const createUser = async (req, res) => {
+  logger.log(SEVERITY.INFO, "Started saving user");
+  const response = await Userservice.registerUser(req, res);
+  res.send("Successfully saved" + JSON.stringify(response));
 };
 
 const userController = {
