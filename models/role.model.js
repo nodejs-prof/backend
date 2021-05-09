@@ -3,6 +3,7 @@ const Role = (sequelize, Sequelize) => {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
+      autoIncrement: true
     },
     role: {
       type: Sequelize.STRING,

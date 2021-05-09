@@ -18,7 +18,11 @@ const sequelize = new Sequelize(DBConfig.DB, DBConfig.USER, DBConfig.PASSWORD, {
 const db = {
   Sequelize,
   sequelize,
-  models: ModelInitialization(sequelize, Sequelize),
+  ...ModelInitialization(sequelize, Sequelize),
 };
 
-export { db };
+export const getModel = (modelType) => {
+  return db[modelType];
+};
+
+export default db;

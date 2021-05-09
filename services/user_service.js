@@ -1,10 +1,10 @@
 // import { auditMethod } from "../shared/user_audits";
 
-import { NotFoundException } from "../shared/exceptions/NotFoundException";
+import { getModel } from "../models";
+import { Repository } from "../repositories/repository";
 
-const registerUser = () => {
-  // console.log("user registered !!!!!!!!!!!");
-  throw new NotFoundException("NOT IMPLEMENTED: Author list !!!!!!!!!!!!!!")
+const registerUser = (req, res) => {
+  Repository.create(getModel("user"), { ...req });
 };
 
 const Userservice = {
