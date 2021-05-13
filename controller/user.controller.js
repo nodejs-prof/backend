@@ -9,6 +9,12 @@ const createUser = async (req, res) => {
   res.send("Successfully saved" + JSON.stringify(response));
 };
 
+const getUserById = async (req, res) => {
+  logger.log(SEVERITY.INFO, "Started retrieving user");
+  const response = await Userservice.registerUser(req, res);
+  res.send("Successfully saved" + JSON.stringify(response));
+};
+
 const userController = {
   createUser,
 };

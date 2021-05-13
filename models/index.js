@@ -1,6 +1,8 @@
 import { DBConfig } from "../config/db.config";
 import { ModelInitialization } from "./allModels.model";
 import { Sequelize } from "sequelize";
+import { RelationshipGenerator } from "./relationship_generator";
+import { DBService } from "../services/db.service";
 
 const sequelize = new Sequelize(DBConfig.DB, DBConfig.USER, DBConfig.PASSWORD, {
   host: DBConfig.HOST,
@@ -22,14 +24,18 @@ const db = {
 };
 
 const MODELS = {
-  USER : db.user,
-  ROLE : db.role
-}
+  USER: db.user,
+  ROLE: db.role,
+  USER_ROLE: db.user_role,
+};
 
 const initializeDatabase = () => {
+  RelationshipGenerator();
   db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
+    DBService.initializaDatabaseTables();
   });
+ 
 };
 
 export { initializeDatabase, MODELS };
