@@ -1,5 +1,4 @@
 const User = (sequelize, Sequelize) => {
-
   return sequelize.define("user", {
     id: {
       type: Sequelize.INTEGER,
@@ -10,6 +9,9 @@ const User = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     email: {
+      type: Sequelize.STRING,
+    },
+    password: {
       type: Sequelize.STRING,
     },
   });
