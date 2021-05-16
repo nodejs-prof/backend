@@ -14,10 +14,10 @@ const author_list = (req, res) => {
   logger.log(SEVERITY.DEBUG, "hello world");
 
   // const userService = new Userservice();
-  Userservice.registerUser();
+  // Userservice.registerUser();
   // res.send("NOT IMPLEMENTED: Author list");
 
-  // throw new NotFoundException("Resource not found");
+  throw new NotFoundException("Resource not found");
 };
 
 // Display detail page for a specific Author.
