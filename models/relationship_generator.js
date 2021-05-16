@@ -7,7 +7,7 @@ const RelationshipGenerator = () => {
     as: "user",
   });
 
-MODELS.ROLE.hasMany(MODELS.USER_ROLE, { as: "role_user_roles" });
+  MODELS.ROLE.hasMany(MODELS.USER_ROLE, { as: "role_user_roles" });
   MODELS.USER_ROLE.belongsTo(MODELS.ROLE, { foreignKey: "roleId", as: "role" });
 };
 

@@ -7,7 +7,7 @@ const logger = new Logger("User Controller", {});
 const createUser = async (req, res) => {
   logger.log(SEVERITY.INFO, "Started saving user");
   const response = await Userservice.registerUser(req, res);
-  res.send("Successfully saved" + JSON.stringify(response));
+  res.send(JSON.stringify(response));
 };
 
 const getUserById = async (req, res, next) => {
@@ -21,7 +21,7 @@ const getUserById = async (req, res, next) => {
 
     const response = await Userservice.getUser(user_id, res);
 
-    res.send("User" + JSON.stringify(response));
+    res.send(JSON.stringify(response));
   } catch (error) {
     next(error);
   }
@@ -31,6 +31,7 @@ const signin = async (req, res) => {
   logger.log(SEVERITY.INFO, "Signing in user");
 
   const response = await Userservice.signinUser(req);
+  res.send(response);
 };
 
 const userController = {

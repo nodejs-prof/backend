@@ -10,6 +10,7 @@ import { UnauthorizedException } from "../shared/exceptions/UnauthorizedExceptio
 import { RoleService } from "./role.service";
 import { UserRoleService } from "./user_role.service";
 import jwt from "jsonwebtoken";
+import { secretCode } from "../config/auth.config";
 
 const registerUser = async (req) => {
   const model = MODELS.USER;
@@ -84,31 +85,45 @@ const signinUser = async (req) => {
   const { email, password } = req.body;
 
   const user = await UserRepository.findByEmail(email);
-  console.log(user);
-  console.log("*******************************");
-  console.log(JSON.stringify(user));
-  console.log("*******************************");
-  console.log(user.user_roles);
+
+  // console.log(JSON.stringify(user.user_roles[0].role.role));
   if (!user) {
     throw new BadRequestException("User has not registered");
   }
 
-  // var passwordIsValid = bcrypt.compareSync(password, user.password);
+  var passwordIsValid = bcrypt.compareSync(password, user.password);
 
-  // if (!passwordIsValid) {
-  //   throw new UnauthorizedException("Invalid Password");
-  // }
+  if (!passwordIsValid) {
+    throw new UnauthorizedException("Invalid Password");
+  }
 
-  // var token = jwt.sign({ id: user.id }, config.secret, {
-  //   expiresIn: 86400, // 24 hours
-  // });
+  const role = user.user_roles[0].role.role;
 
-  // var authorities = [];
+  var token = jwt.sign(
+    { id: user.id, email: user.email, role },
+    secretCode.secret,
+    {
+      expiresIn: 86400, // 24 hours
+    }
+  );
 
-  // user.getRoles().then(roles => {
-  //   for (let i = 0; i < roles.length; i++) {
+  var authorities = [];
 
-  //   }
+  user.user_roles.forEach((user_role) => {
+    authorities.push("ROLE_" + user_role.role.role.toUpperCase());
+    console.log("pushing************");
+  });
+
+  const response = {
+    id: user.id,
+    email: user.email,
+    roles: authorities,
+    accessToken: token,
+  };
+
+  console.log(response);
+
+  return response;
 };
 
 const Userservice = {
