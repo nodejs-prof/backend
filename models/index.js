@@ -30,12 +30,11 @@ const MODELS = {
 };
 
 const initializeDatabase = () => {
-  RelationshipGenerator();
+  // RelationshipGenerator();
   db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
     DBService.initializaDatabaseTables();
   });
- 
 };
 
 export { initializeDatabase, MODELS };

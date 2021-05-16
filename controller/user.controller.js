@@ -27,6 +27,10 @@ const getUserById = async (req, res, next) => {
   }
 };
 
+const getCurrentUser = () =>{
+  
+}
+
 const signin = async (req, res) => {
   logger.log(SEVERITY.INFO, "Signing in user");
 
@@ -38,6 +42,7 @@ const userController = {
   createUser,
   getUserById,
   signin,
+  getCurrentUser
 };
 
 export { userController };

@@ -3,10 +3,13 @@ import { User } from "./user.model";
 import { UserRole } from "./user_role.model";
 
 const ModelInitialization = (sequelize, Sequelize) => {
+  const user = User(sequelize, Sequelize);
+  const role = Role(sequelize, Sequelize);
+  const user_role = UserRole(sequelize, Sequelize, user, role);
   return {
-    user: User(sequelize, Sequelize),
-    role: Role(sequelize, Sequelize),
-    user_role: UserRole(sequelize, Sequelize),
+    user,
+    role,
+    user_role,
   };
 };
 
