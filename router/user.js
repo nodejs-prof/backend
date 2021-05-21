@@ -11,5 +11,11 @@ router.get(
 
   userController.getUserById
 );
+router.get(
+  "/getuser",
+  AuthJWTFilter.authorize,
+
+  userController.getUserById
+);
 
 export default router;

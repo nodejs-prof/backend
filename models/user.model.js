@@ -1,5 +1,7 @@
+import { MODELS } from ".";
+
 const User = (sequelize, Sequelize) => {
-  return sequelize.define("user", {
+  const user = sequelize.define("user", {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
@@ -15,6 +17,8 @@ const User = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
   });
+
+  return user;
 };
 
 export const toString = () => {
