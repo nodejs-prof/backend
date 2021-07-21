@@ -4,6 +4,8 @@ import { Sequelize } from "sequelize";
 import { RelationshipGenerator } from "./relationship_generator";
 import { DBService } from "../services/db.service";
 
+// const DBConfig = JSON.parse(process.env.DATABASE)
+
 const sequelize = new Sequelize(DBConfig.DB, DBConfig.USER, DBConfig.PASSWORD, {
   host: DBConfig.HOST,
   dialect: DBConfig.dialect,
