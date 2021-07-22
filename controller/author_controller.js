@@ -3,11 +3,6 @@ import { Userservice } from "../services/user_service";
 import { NotFoundException } from "../shared/exceptions/NotFoundException";
 import { Logger, SEVERITY } from "../shared/logger";
 
-// Display list of all Authors.
-// const author_list = handler((req, res, X_HADER) => {
-//   console.log("X_HADER :::::::: " + X_HADER);
-//   res.send("NOT IMPLEMENTED: Author list");
-// });
 const logger = new Logger("AuthorController", {});
 const author_list = (req, res) => {
   // const logger = new Logger("Authors list", {});

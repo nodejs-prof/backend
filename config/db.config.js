@@ -1,16 +1,15 @@
 var DBConfig = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "123456",
-    DB: "testdb",
-    dialect: "mysql",
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
-  };
-  
-  export { DBConfig };
-  
+  HOST: "vocalavenue.cgum9yn2jezz.us-east-2.rds.amazonaws.com",
+  USER: "va_admin",
+  PASSWORD: "VA#M0ra#SL#1",
+  DB: "va_db_dev",
+  dialect: "mysql",
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+};
+
+export { DBConfig };

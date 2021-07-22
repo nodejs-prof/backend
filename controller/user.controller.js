@@ -1,6 +1,7 @@
 import { Userservice } from "../services/user_service";
 import { BadRequestException } from "../shared/exceptions/BadRequestException";
 import { Logger, SEVERITY } from "../shared/logger";
+import { handler } from "../services/pre-request-handler";
 
 const logger = new Logger("User Controller", {});
 
@@ -27,22 +28,20 @@ const getUserById = async (req, res, next) => {
   }
 };
 
-const getCurrentUser = () =>{
-  
-}
+const getCurrentUser = () => {};
 
-const signin = async (req, res) => {
+const signin = handler(async (req, res, next) => {
   logger.log(SEVERITY.INFO, "Signing in user");
 
   const response = await Userservice.signinUser(req);
-  res.send(response);
-};
+  return response;
+});
 
 const userController = {
   createUser,
   getUserById,
   signin,
-  getCurrentUser
+  getCurrentUser,
 };
 
 export { userController };
