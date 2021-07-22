@@ -11,6 +11,7 @@ import { RoleService } from "./role.service";
 import { UserRoleService } from "./user_role.service";
 import jwt from "jsonwebtoken";
 import { secretCode } from "../config/auth.config";
+import { TokenHandler } from "./JWT/token-handler";
 
 const registerUser = async (req) => {
   const model = MODELS.USER;
@@ -49,7 +50,7 @@ const registerUser = async (req) => {
 
 const validateRole = async (role) => {
   const role_response = await RoleService.findRole(role);
-  console.log(role_response)
+  console.log(role_response);
   if (!role_response) {
     return role_response;
   }
@@ -81,6 +82,11 @@ const getUser = async (user_id) => {
   return user_dto;
 };
 
+const retrieveCurrentUser = async (email) => {
+  const user = await UserRepository.findByEmail(email);
+  return user;
+};
+
 const signinUser = async (req) => {
   const { email, password } = req.body;
 
@@ -99,25 +105,22 @@ const signinUser = async (req) => {
 
   const role = user.user_roles[0].role.role;
 
-  var token = jwt.sign(
-    { id: user.id, email: user.email, role },
-    secretCode.secret,
-    {
-      expiresIn: 86400, // 24 hours
-    }
-  );
+  var token = await TokenHandler.generateToken({
+    id: user.id,
+    email,
+    role,
+  });
 
   var authorities = [];
 
   user.user_roles.forEach((user_role) => {
     authorities.push("ROLE_" + user_role.role.role.toUpperCase());
-    console.log("pushing************");
   });
 
   const response = {
-    id: user.id,
-    email: user.email,
-    roles: authorities,
+    // id: user.id,
+    // email: user.email,
+    // roles: authorities,
     accessToken: token,
   };
 
@@ -130,6 +133,7 @@ const Userservice = {
   registerUser,
   getUser,
   signinUser,
+  retrieveCurrentUser,
 };
 
 // @auditMethod()
