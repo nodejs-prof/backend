@@ -25,7 +25,7 @@ const getCurrentUser = handlerWithCurrentUser(
 );
 
 const signin = handler(async (req, res, next,logger) => {
-  logger.log(SEVERITY.INFO, "Request to user login");
+  logger.log(SEVERITY.INFO, "Request to login");
 
   const response = await Userservice.signinUser(req);
   return response;
