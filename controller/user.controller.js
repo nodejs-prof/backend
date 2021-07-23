@@ -1,7 +1,10 @@
 import { Userservice } from "../services/user_service";
 import { BadRequestException } from "../shared/exceptions/BadRequestException";
 import { Logger, SEVERITY } from "../shared/logger";
-import { handler } from "../services/pre-request-handler";
+import {
+  handler,
+  handlerWithCurrentUser,
+} from "../services/pre-request-handler";
 import { TokenHandler } from "../services/JWT/token-handler";
 
 const logger = new Logger("User Controller", {});
@@ -29,17 +32,26 @@ const getUserById = async (req, res, next) => {
   }
 };
 
-const getCurrentUser = handler(async (req, res, next) => {
-  const token = req.headers["authorization"];
+// const getCurrentUser = handler(async (req, res, next) => {
+//   const token = req.headers["authorization"];
 
-  const user = await TokenHandler.decodeToken(token);
+//   const user = await TokenHandler.decodeToken(token);
 
-  const { email, ...rest } = user;
+//   const { email } = user;
 
-  const currentUser = await Userservice.retrieveCurrentUser(email);
+//   const currentUser = await Userservice.retrieveCurrentUser(email);
 
-  return currentUser;
-});
+//   return currentUser;
+// });
+
+const getCurrentUser = handlerWithCurrentUser(
+  async (req, res, next, userDetails) => {
+    const { email } = userDetails;
+    const currentUser = await Userservice.retrieveCurrentUser(email);
+
+    return currentUser;
+  }
+);
 
 const signin = handler(async (req, res, next) => {
   logger.log(SEVERITY.INFO, "Signing in user");

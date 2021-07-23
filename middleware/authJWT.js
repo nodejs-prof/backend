@@ -4,26 +4,36 @@ import { secretCode } from "../config/auth.config";
 import { UnauthorizedException } from "../shared/exceptions/UnauthorizedException";
 
 const authorize = (role) => {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     let token = req.headers.authorization;
-
+    console.log("I am at authorise");
     if (!token) {
       throw new Forbiddenexception("Token not found");
     }
 
-    jwt.verify(token, secretCode.secret, verificationCb(req,res,next));
+    return await verification(token, next);
   };
 };
 
-const verificationCb = (req, res, next) => {
-  return (err, decoded) => {
+const verification = async (token, next) => {
+  return jwt.verify(token, secretCode.secret, (err, decoded) => {
     if (err) {
       throw new UnauthorizedException("Unauthorized user!");
     }
     // req.email = decoded.email;
-    next();
-  };
+    return next();
+  });
 };
+
+// const verificationCb = async (req, res, next) => {
+//   return (err, decoded) => {
+//     if (err) {
+//       throw new UnauthorizedException("Unauthorized user!");
+//     }
+//     // req.email = decoded.email;
+//     next();
+//   };
+// };
 
 const AuthJWTFilter = {
   authorize,

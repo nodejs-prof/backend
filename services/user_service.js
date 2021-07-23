@@ -82,9 +82,11 @@ const getUser = async (user_id) => {
   return user_dto;
 };
 
-const retrieveCurrentUser = async (email) => {
-  const user = await UserRepository.findByEmail(email);
-  return user;
+const retrieveCurrentUser = async (mail) => {
+  const user = await UserRepository.findByEmail(mail);
+  const { name, email, user_roles } = user;
+  const response = { name, email, user_roles };
+  return response;
 };
 
 const signinUser = async (req) => {

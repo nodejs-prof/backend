@@ -5,7 +5,11 @@ import { AuthJWTFilter } from "../middleware/authJWT";
 var router = Router();
 
 router.post("/create", userController.createUser);
-router.get("/current-user", userController.getCurrentUser);
+router.get(
+  "/current-user",
+  AuthJWTFilter.authorize(),
+  userController.getCurrentUser
+);
 
 router.get(
   "/getuser",
