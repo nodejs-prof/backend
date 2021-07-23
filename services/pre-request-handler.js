@@ -1,15 +1,4 @@
-// // const logger = new Logger("User Controller", {});
-// const handler = (lambda) => {
-//   return (req, res, next) => {
-//     try {
-//       return lambda(req);
-//     } catch (error) {
-//       next(error);
-//     }
-//   };
-// };
-
-// export { handler };
+import { TokenHandler } from "./JWT/token-handler";
 
 const handler = (lambda) => {
   return async (req, res, next) => {
@@ -24,4 +13,19 @@ const handler = (lambda) => {
   };
 };
 
-export { handler };
+const handlerWithCurrentUser = (lambda) => {
+  return async (req, res, next) => {
+    try {
+      const token = req.headers["authorization"];
+     
+      const user = await TokenHandler.decodeToken(token);
+     
+      var response = await lambda(req, res, next, user);
+      return res.send(response);
+    } catch (error) {
+      next(error);
+    }
+  };
+};
+
+export { handler, handlerWithCurrentUser };
