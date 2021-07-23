@@ -13,7 +13,7 @@ const exceptionHandler = (err, req, res, next) => {
 };
 
 const generalErrorConverter = (res, err) => {
-  console.log(err);
+  console.log("**************global exception handler*************");
   return res.status(err.statusCode).json({
     ...ERROR_RESPONSE_TEMPLATE,
     message: err.message,

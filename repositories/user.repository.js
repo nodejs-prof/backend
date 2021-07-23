@@ -22,7 +22,7 @@ const findByEmail = async (email) => {
       ],
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw new BadRequestException("Email cannot be retrieved");
   }
 };

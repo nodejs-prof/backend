@@ -6,9 +6,9 @@ import { UnauthorizedException } from "../shared/exceptions/UnauthorizedExceptio
 const authorize = (role) => {
   return async (req, res, next) => {
     let token = req.headers.authorization;
-    console.log("I am at authorise");
+    // console.log("I am at authorise");
     if (!token) {
-      throw new Forbiddenexception("Token not found");
+      return next(new Forbiddenexception("Token not found"));
     }
 
     return await verification(token, next);
