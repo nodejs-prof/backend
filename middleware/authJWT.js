@@ -18,7 +18,7 @@ const authorize = (role) => {
 const verification = async (token, next) => {
   return jwt.verify(token, secretCode.secret, (err, decoded) => {
     if (err) {
-      throw new UnauthorizedException("Unauthorized user!");
+      return next(new UnauthorizedException("Unauthorized user!"));
     }
     // req.email = decoded.email;
     return next();

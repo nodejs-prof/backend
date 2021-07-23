@@ -31,9 +31,14 @@ const findById = async (id) => {
   return await MODELS.USER.findByPk(id);
 };
 
+const findAll = async () => {
+  return await MODELS.USER.findAll();
+};
+
 const UserRepository = {
   findByEmail,
   findById,
+  findAll,
 };
 
 export { UserRepository };
