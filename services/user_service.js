@@ -50,7 +50,7 @@ const registerUser = async (req) => {
 
 const validateRole = async (role) => {
   const role_response = await RoleService.findRole(role);
-  console.log(role_response);
+  // console.log(role_response);
   if (!role_response) {
     return role_response;
   }

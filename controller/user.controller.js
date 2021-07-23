@@ -5,7 +5,6 @@ import {
   handler,
   handlerWithCurrentUser,
 } from "../services/pre-request-handler";
-import { TokenHandler } from "../services/JWT/token-handler";
 
 const logger = new Logger("User Controller", {});
 
@@ -15,37 +14,9 @@ const createUser = async (req, res) => {
   res.send(JSON.stringify(response));
 };
 
-const getUserById = async (req, res, next) => {
-  try {
-    logger.log(SEVERITY.INFO, "Started retrieving user");
-
-    var user_id = req.query.id;
-    if (!user_id) {
-      throw new BadRequestException("User ID not received");
-    }
-
-    const response = await Userservice.getUser(user_id, res);
-
-    res.send(JSON.stringify(response));
-  } catch (error) {
-    next(error);
-  }
-};
-
-// const getCurrentUser = handler(async (req, res, next) => {
-//   const token = req.headers["authorization"];
-
-//   const user = await TokenHandler.decodeToken(token);
-
-//   const { email } = user;
-
-//   const currentUser = await Userservice.retrieveCurrentUser(email);
-
-//   return currentUser;
-// });
-
 const getCurrentUser = handlerWithCurrentUser(
-  async (req, res, next, userDetails) => {
+  async (req, res, next, userDetails,logger) => {
+    logger.log(SEVERITY.INFO,"Request to get current user")
     const { email } = userDetails;
     const currentUser = await Userservice.retrieveCurrentUser(email);
 
@@ -53,7 +24,7 @@ const getCurrentUser = handlerWithCurrentUser(
   }
 );
 
-const signin = handler(async (req, res, next) => {
+const signin = handler(async (req, res, next,logger) => {
   logger.log(SEVERITY.INFO, "Signing in user");
 
   const response = await Userservice.signinUser(req);
@@ -62,7 +33,6 @@ const signin = handler(async (req, res, next) => {
 
 const userController = {
   createUser,
-  getUserById,
   signin,
   getCurrentUser,
 };
