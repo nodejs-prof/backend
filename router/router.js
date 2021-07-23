@@ -3,6 +3,7 @@ import { AuthJWTFilter } from "../middleware/authJWT";
 var catalogRouter = require("./catalog").default;
 var userRouter = require("./user").default;
 var authRouter = require("./auth").default;
+var notificationRouter = require("./notification").default;
 
 const routers = (app) => {
   app.use((req, res, next) => {
@@ -15,6 +16,7 @@ const routers = (app) => {
   app.use("/catalog", catalogRouter);
   app.use("/user", userRouter);
   app.use("/auth", authRouter);
+  app.use("/notification", notificationRouter);
 };
 
 export { routers };

@@ -131,11 +131,16 @@ const signinUser = async (req) => {
   return response;
 };
 
+const getAll = async () => {
+  return await UserRepository.findAll();
+};
+
 const Userservice = {
   registerUser,
   getUser,
   signinUser,
   retrieveCurrentUser,
+  getAll,
 };
 
 // @auditMethod()
