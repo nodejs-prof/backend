@@ -5,9 +5,13 @@ import { BadRequestException } from "../shared/exceptions/BadRequestException";
 import { SEVERITY } from "../shared/logger";
 
 const UserNotificationRepository = (logger) => {
-  const create = async (data) => {
+  const create = async (data, t) => {
     try {
-      const result = await Repository.create(MODELS.User_Notification, data);
+      const result = await Repository.createWithTransaction(
+        MODELS.User_Notification,
+        data,
+        t
+      );
 
       return result;
     } catch (error) {
@@ -28,9 +32,12 @@ const UserNotificationRepository = (logger) => {
   };
 
   const deleteById = async (id) => {
-    const result = await MODELS.User_Notification.destroy({
-      where: { id: id },
-    });
+    const result = await MODELS.User_Notification.destroy(
+      {
+        where: { id: id },
+      },
+      { transacion: t }
+    );
 
     return result;
   };
