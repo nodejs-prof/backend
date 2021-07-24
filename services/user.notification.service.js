@@ -3,6 +3,7 @@ import moment from "moment";
 import { UserNotificationRepository } from "../repositories/user.notification.repository";
 import { NotFoundException } from "../shared/exceptions/NotFoundException";
 import { Userservice } from "./user_service";
+import { PN_ADAPTERS } from "./pushnotification/pushnotification_adapter";
 
 const UserNotificationService = (logger) => {
   const userNotificationRepository = UserNotificationRepository(logger);
@@ -27,6 +28,7 @@ const UserNotificationService = (logger) => {
         notificationId,
         pnSend: false,
         seen: false,
+        type: PN_ADAPTERS.ADMIN_CREATED_PN
       };
 
       await userNotificationRepository.create(data);

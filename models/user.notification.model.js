@@ -11,6 +11,9 @@ const UserNotification = (sequelize, Sequelize, user, notification) => {
     seen: {
       type: Sequelize.BOOLEAN,
     },
+    type: {
+      type: Sequelize.INTEGER,
+    },
   });
 
   user.hasMany(user_notifications, { as: "user_notifications" });
