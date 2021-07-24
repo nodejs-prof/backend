@@ -29,6 +29,7 @@ const MODELS = {
   USER: db.user,
   ROLE: db.role,
   USER_ROLE: db.user_role,
+  SONG: db.song,
   Notification: db.notification,
   User_Notification: db.userNotification,
 };
