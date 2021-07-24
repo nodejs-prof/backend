@@ -34,11 +34,12 @@ const MODELS = {
   User_Notification: db.userNotification,
 };
 
-const initializeDatabase = () => {
+const initializeDatabase = async () => {
   // RelationshipGenerator();
-  db.sequelize.sync({ force: false }).then(() => {
+  return await db.sequelize.sync({ force: false }).then(() => {
     console.log("Drop and re-sync db.");
-    DBService.initializaDatabaseTables();
+    // DBService.initializaDatabaseTables();
+    return;
   });
 };
 

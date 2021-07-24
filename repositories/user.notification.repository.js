@@ -116,6 +116,7 @@ const UserNotificationRepository = (logger) => {
       );
     }
   };
+  
 
   return {
     create,

@@ -1,4 +1,5 @@
-import { AdminCreatedPNAdapter } from "./admin_created_pn_adapter";
+import { AdminCreatedPNAdapter } from "./admin_created.pnadapter";
+
 
 const PN_ADAPTERS = {
   ADMIN_CREATED_PN: 0,
