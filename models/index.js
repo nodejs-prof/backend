@@ -27,6 +27,7 @@ const MODELS = {
   ROLE: db.role,
   USER_ROLE: db.user_role,
   SONG: db.song,
+  PART: db.part,
   Notification: db.notification,
   User_Notification: db.userNotification,
   DEVICE_TOKEN: db.deviceToken,
