@@ -1,5 +1,5 @@
 const create = async (model, req) => {
-  return model.create(req);
+  return model.upsert(req);
 };
 
 const upsert = async (model,req) =>{

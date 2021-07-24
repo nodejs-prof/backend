@@ -1,6 +1,8 @@
+import { Notification } from "./notification.model";
 import { Role } from "./role.model";
 import { Song } from "./song.model";
 import { User } from "./user.model";
+import { UserNotification } from "./user.notification.model";
 import { UserRole } from "./user_role.model";
 
 const ModelInitialization = (sequelize, Sequelize) => {
@@ -12,11 +14,15 @@ const ModelInitialization = (sequelize, Sequelize) => {
   //song models
   const song = Song(sequelize, Sequelize);
 
+  const notification = Notification(sequelize, Sequelize);
+  const userNotification = UserNotification(sequelize, Sequelize, user, notification)
   return {
     user,
     role,
     user_role,
-    song
+    song,
+    notification,
+    userNotification
   };
 };
 
