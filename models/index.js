@@ -1,10 +1,7 @@
-import { DBConfig } from "../config/db.config";
 import { ModelInitialization } from "./allModels.model";
 import { Sequelize } from "sequelize";
-import { RelationshipGenerator } from "./relationship_generator";
-import { DBService } from "../services/db.service";
 
-// const DBConfig = JSON.parse(process.env.DATABASE)
+const DBConfig = JSON.parse(process.env.DATABASE);
 
 const sequelize = new Sequelize(DBConfig.DB, DBConfig.USER, DBConfig.PASSWORD, {
   host: DBConfig.HOST,
@@ -32,6 +29,7 @@ const MODELS = {
   SONG: db.song,
   Notification: db.notification,
   User_Notification: db.userNotification,
+  DEVICE_TOKEN: db.deviceToken,
 };
 
 const initializeDatabase = async () => {

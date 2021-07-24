@@ -29,6 +29,7 @@ const UserNotificationService = (logger) => {
         pnSend: false,
         seen: false,
         type: PN_ADAPTERS.ADMIN_CREATED_PN,
+        status: "PENDING",
       };
 
       await userNotificationRepository.create(data);
@@ -98,11 +99,15 @@ const UserNotificationService = (logger) => {
     return result;
   };
 
-  const getAllPnSendFalseRecords = () => {
+  const getAllPnSendFalseRecords = async () => {
+    const result = await userNotificationRepository.findAllPnSendIsFalse();
 
+    return result;
+  };
 
-
-  }
+  const updatePNSendStatus = async ({ pnSend, status, cause, id }) => {
+    await userNotificationRepository.updatePnSend(pnSend, status, cause, id);
+  };
 
   return {
     create,
@@ -110,7 +115,8 @@ const UserNotificationService = (logger) => {
     getUserUnSeenNotificationsCount,
     seenAll,
     view,
-    getAllPnSendFalseRecords
+    getAllPnSendFalseRecords,
+    updatePNSendStatus,
   };
 };
 

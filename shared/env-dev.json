@@ -1,8 +1,8 @@
 {
   "ENV": "dev",
-  "PORT" : 3000,
+  "PORT": 3000,
   "LOG_LEVEL": "DEBUG",
-  "DATABASE" :{
+  "DATABASE": {
     "HOST": "vocalavenue.cgum9yn2jezz.us-east-2.rds.amazonaws.com",
     "USER": "va_admin",
     "PASSWORD": "VA#M0ra#SL#1",
@@ -13,6 +13,13 @@
       "min": 0,
       "acquire": 30000,
       "idle": 10000
+    }
+  },
+  "FIREBASE": {
+    "PUSH_NOTIFICATION": {
+      "SERVER_KEY": "AAAA5j-Z_W0:APA91bG4jbl9RBIsmPNJNNJ4JnJOLCivloprUraMhRmgAU4G0SEgsJyezfsMeqMo1jxMdDNKUI_Xp_RtgMqFifTyy3MsSQ0YM29juUprpsqBHUG9OI3jlx2l24_mRzS7ioMdP85eKvlK",
+      "BASE_URL": "https://fcm.googleapis.com/fcm/send",
+      "NOTIFICATION_IMAGE": "https://firebasestorage.googleapis.com/v0/b/falldetection-b32b2.appspot.com/o/a%2F055c9f86-48c3-49e6-accb-44c3ffbc7b25.jpg?alt=media&token=9ba200a2-581f-426c-8a1c-7da7d37390d5"
     }
   }
 }

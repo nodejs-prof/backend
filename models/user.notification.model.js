@@ -14,6 +14,14 @@ const UserNotification = (sequelize, Sequelize, user, notification) => {
     type: {
       type: Sequelize.INTEGER,
     },
+    status: {
+      type: Sequelize.ENUM,
+      values: ["PENDING", "SUCCESS", "FAIL"],
+      allowNull: false,
+    },
+    cause: {
+      type: Sequelize.STRING(800),
+    },
   });
 
   user.hasMany(user_notifications, { as: "user_notifications" });

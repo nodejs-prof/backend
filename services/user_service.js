@@ -121,13 +121,8 @@ const signinUser = async (req) => {
   });
 
   const response = {
-    // id: user.id,
-    // email: user.email,
-    // roles: authorities,
     accessToken: token,
   };
-
-  console.log(response);
 
   return response;
 };
