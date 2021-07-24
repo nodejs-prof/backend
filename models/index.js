@@ -29,11 +29,12 @@ const MODELS = {
   USER: db.user,
   ROLE: db.role,
   USER_ROLE: db.user_role,
+  SONG: db.song
 };
 
 const initializeDatabase = () => {
   // RelationshipGenerator();
-  db.sequelize.sync({ force: true }).then(() => {
+  db.sequelize.sync({ force: false }).then(() => {
     console.log("Drop and re-sync db.");
     DBService.initializaDatabaseTables();
   });
