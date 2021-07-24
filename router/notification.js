@@ -7,7 +7,7 @@ var router = Router();
 
 router.post("/create", AuthJWTFilter.authorize(), NoificationController.create);
 
-router.get("/:id", AuthJWTFilter.authorize(), NoificationController.view);
+router.get("/view/:id", AuthJWTFilter.authorize(), NoificationController.view);
 
 router.get(
   "/all",

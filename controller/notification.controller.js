@@ -58,7 +58,7 @@ const seenAllUserNotifications = handlerWithCurrentUser(
 
 const view = handlerWithCurrentUser(
   async (req, res, next, userDetails, logger) => {
-    logger.log(SEVERITY.INFO, "Request to getview user noification");
+    logger.log(SEVERITY.INFO, "Request to view user noification");
 
     const { id: userNotificationId } = req.params;
 

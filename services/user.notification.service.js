@@ -3,6 +3,7 @@ import moment from "moment";
 import { UserNotificationRepository } from "../repositories/user.notification.repository";
 import { NotFoundException } from "../shared/exceptions/NotFoundException";
 import { Userservice } from "./user_service";
+import { PN_ADAPTERS } from "./pushnotification/pnadapter";
 
 const UserNotificationService = (logger) => {
   const userNotificationRepository = UserNotificationRepository(logger);
@@ -27,13 +28,12 @@ const UserNotificationService = (logger) => {
         notificationId,
         pnSend: false,
         seen: false,
+        type: PN_ADAPTERS.ADMIN_CREATED_PN,
+        status: "PENDING",
       };
 
       await userNotificationRepository.create(data);
     }
-    // const existingRecords = await userNotificationRepository.findByNotificationId(notificationId);
-
-    // return existingRecords;
   };
 
   const getUserNotifications = async (user, pagination) => {
@@ -99,12 +99,24 @@ const UserNotificationService = (logger) => {
     return result;
   };
 
+  const getAllPnSendFalseRecords = async () => {
+    const result = await userNotificationRepository.findAllPnSendIsFalse();
+
+    return result;
+  };
+
+  const updatePNSendStatus = async ({ pnSend, status, cause, id }) => {
+    await userNotificationRepository.updatePnSend(pnSend, status, cause, id);
+  };
+
   return {
     create,
     getUserNotifications,
     getUserUnSeenNotificationsCount,
     seenAll,
     view,
+    getAllPnSendFalseRecords,
+    updatePNSendStatus,
   };
 };
 

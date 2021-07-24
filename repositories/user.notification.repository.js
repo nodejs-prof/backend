@@ -107,14 +107,65 @@ const UserNotificationRepository = (logger) => {
     } catch (error) {
       logger.log(
         SEVERITY.ERROR,
-        "Error occured in find notifications by user-notification id"
+        "Error occured in getting user notification by id"
       );
       logger.log(SEVERITY.ERROR, error);
 
       throw new BadRequestException(
-        "Error occured in getting user notification"
+        "Error occured in getting user notification by id"
       );
     }
+  };
+
+  const findAllPnSendIsFalse = async () => {
+    try {
+      return await MODELS.User_Notification.findAll({
+        where: {
+          pnSend: false,
+        },
+        include: [
+          {
+            required: true,
+            model: MODELS.Notification,
+            as: "notification",
+          },
+          {
+            required: true,
+            model: MODELS.USER,
+            as: "user",
+            include: [
+              {
+                model: MODELS.DEVICE_TOKEN,
+                as: "device_token",
+                where: {
+                  active: true,
+                },
+              },
+            ],
+          },
+        ],
+      });
+    } catch (error) {
+      logger.log(SEVERITY.ERROR, "Error occured in getting not send PN");
+      logger.log(SEVERITY.ERROR, error);
+
+      throw new BadRequestException("Error occured in getting not send PN");
+    }
+  };
+
+  const updatePnSend = async (pnSend, status, cause, id) => {
+    const result = await MODELS.User_Notification.update(
+      {
+        pnSend,
+        status,
+        cause,
+      },
+      {
+        where: { id: id },
+      }
+    );
+
+    return result;
   };
 
   return {
@@ -125,6 +176,8 @@ const UserNotificationRepository = (logger) => {
     findAllByUserIdAndSeen,
     updateAsSeenbyUserId,
     findByUserNotificationId,
+    findAllPnSendIsFalse,
+    updatePnSend,
   };
 };
 

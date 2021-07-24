@@ -1,5 +1,5 @@
 import express from "express";
-import { DBService } from "./services/db.service";
+// import { DBService } from "./services/db.service";
 
 const arg = process.env.ENV || "dev";
 
@@ -23,8 +23,9 @@ const { Logger, SEVERITY } = require("./shared/logger");
 
 const { initializeDatabase } = require("./models/index");
 
-initializeDatabase();
-
+initializeDatabase().then(() => {
+  // require("./schedulers");
+});
 
 app.listen(process.env.PORT, () => {
   Logger("app", "").log(
