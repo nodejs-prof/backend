@@ -3,6 +3,7 @@ var userRouter = require("./user").default;
 var authRouter = require("./auth").default;
 var songRouter = require("./song").default;
 var notificationRouter = require("./notification").default;
+var deviceTokenRouter = require("./deviceToken").default;
 
 const routers = (app) => {
   app.use((req, res, next) => {
@@ -21,6 +22,7 @@ const routers = (app) => {
 
   //notification router
   app.use("/notification", notificationRouter);
+  app.use("/deviceToken", deviceTokenRouter);
 };
 
 export { routers };
