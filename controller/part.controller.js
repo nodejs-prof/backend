@@ -31,8 +31,7 @@ const hello = handler(async (req) => {
   if (body) {
     return { message: body };
   }
-
-  return { message: "Body not found" };
+  return { message: "Body is not found" };
 });
 
 const PartController = {
