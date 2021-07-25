@@ -4,7 +4,8 @@ import { HttpClient } from "./http_client";
 const PushNotificationManager = (logger) => {
   const httpClient = HttpClient();
 
-  const PUSH_NOTIFICATION_ENV = JSON.parse(process.env.FIREBASE);
+  const FIREBASE = JSON.parse(process.env.FIREBASE);
+  const PUSH_NOTIFICATION_ENV = FIREBASE.PUSH_NOTIFICATION;
 
   const send = async (to, msgbody, title, data) => {
     const url = PUSH_NOTIFICATION_ENV.BASE_URL;
