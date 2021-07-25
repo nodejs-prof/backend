@@ -38,6 +38,7 @@ const MODELS = {
   Notification: db.notification,
   User_Notification: db.userNotification,
   DEVICE_TOKEN: db.deviceToken,
+  EVENT: db.event,
 };
 
 const initializeDatabase = async () => {
