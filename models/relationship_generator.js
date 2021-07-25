@@ -9,6 +9,13 @@ const RelationshipGenerator = () => {
 
   MODELS.ROLE.hasMany(MODELS.USER_ROLE, { as: "role_user_roles" });
   MODELS.USER_ROLE.belongsTo(MODELS.ROLE, { foreignKey: "roleId", as: "role" });
+
+  //song has many parts
+  MODELS.SONG.hasMany(MODELS.PART, { as: "part" });
+  MODELS.PART.belongsTo(MODELS.SONG, {
+    foreignKey: "songId",
+    as: "song",
+  });
 };
 
 export { RelationshipGenerator };

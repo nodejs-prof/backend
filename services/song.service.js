@@ -1,18 +1,20 @@
 import { MODELS } from "../models";
 import { Repository } from "../repositories/repository";
 import moment from "moment";
+import { SongRepository } from "../repositories/song.repository";
+import { handler } from "./pre-request-handler";
 
 const SongService = () => {
-   const model = MODELS.SONG;
+  const model = MODELS.SONG;
+
   const createSong = async (req) => {
-    
     const { id, name, image, description } = req.body;
     var data = {
       id,
       name,
       image,
       description,
-      pdatedDateTime: moment(new Date()),
+      updatedDateTime: moment(new Date()),
     };
 
     if (!id) {
@@ -24,12 +26,21 @@ const SongService = () => {
     return createdSong[0];
   };
 
-  const getSongs = async (req) =>{
-    const songs = await Repository
-  }
+  const getSongs = async () => {
+    const songs = await SongRepository().getAllSongs();
+    return songs;
+  };
+
+  const deleteSong = async (req) => {
+    const { id } = req.params;
+    const song = await SongRepository().deleteSong(id);
+    return song;
+  };
 
   return {
     createSong,
+    getSongs,
+    deleteSong,
   };
 };
 

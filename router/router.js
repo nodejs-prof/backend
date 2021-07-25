@@ -2,6 +2,7 @@ var catalogRouter = require("./catalog").default;
 var userRouter = require("./user").default;
 var authRouter = require("./auth").default;
 var songRouter = require("./song").default;
+var partRouter = require("./part").default;
 var notificationRouter = require("./notification").default;
 var deviceTokenRouter = require("./deviceToken").default;
 
@@ -19,6 +20,7 @@ const routers = (app) => {
 
   //song router
   app.use("/song", songRouter);
+  app.use("/part", partRouter);
 
   //notification router
   app.use("/notification", notificationRouter);
