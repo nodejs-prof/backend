@@ -5,6 +5,7 @@ var songRouter = require("./song").default;
 var partRouter = require("./part").default;
 var notificationRouter = require("./notification").default;
 var deviceTokenRouter = require("./deviceToken").default;
+var eventRouter = require("./event").default;
 
 const routers = (app) => {
   app.use((req, res, next) => {
@@ -25,6 +26,7 @@ const routers = (app) => {
   //notification router
   app.use("/notification", notificationRouter);
   app.use("/deviceToken", deviceTokenRouter);
+  app.use("/event", eventRouter);
 };
 
 export { routers };

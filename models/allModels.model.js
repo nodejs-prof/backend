@@ -1,4 +1,5 @@
 import { DeviceToken } from "./device_token.model";
+import { Event } from "./event.model";
 import { Notification } from "./notification.model";
 import { Part } from "./part.model";
 import { Role } from "./role.model";
@@ -25,6 +26,7 @@ const ModelInitialization = (sequelize, Sequelize) => {
     notification
   );
   const deviceToken = DeviceToken(sequelize, Sequelize, user);
+  const event = Event(sequelize, Sequelize);
   return {
     user,
     role,
@@ -34,6 +36,7 @@ const ModelInitialization = (sequelize, Sequelize) => {
     notification,
     userNotification,
     deviceToken,
+    event,
   };
 };
 
