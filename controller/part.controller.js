@@ -26,12 +26,22 @@ const deletePartByID = handler(async (req) => {
   return response;
 });
 
+const hello = handler(async (req) => {
+  const body = req?.body;
+  if (body) {
+    return { message: body };
+  }
+
+  return { message: "Body not found" };
+});
+
 const PartController = {
   create,
   getAllParts,
   getPartByID,
   getPartsBySongID,
   deletePartByID,
+  hello,
 };
 
 export { PartController };
