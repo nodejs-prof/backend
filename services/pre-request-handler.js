@@ -11,7 +11,6 @@ const handler = (lambda) => {
       var response = await lambda(req, res, next, logger);
       return res.send(response);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   };

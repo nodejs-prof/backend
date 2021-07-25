@@ -1,11 +1,14 @@
 import { MODELS } from "../models";
-import { Repository } from "../repositories/repository";
 
 const initializaDatabaseTables = () => {
   const roles = ["ADMIN", "USER"];
 
   roles.forEach((role) => {
-    Repository.create(MODELS.ROLE, { role });
+    MODELS.ROLE.findOrCreate({
+      where: {
+        role,
+      },
+    });
   });
 };
 

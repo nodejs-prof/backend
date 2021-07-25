@@ -1,5 +1,6 @@
 import { ModelInitialization } from "./allModels.model";
 import { Sequelize } from "sequelize";
+import { DBService } from "../services/db.service";
 
 const DBConfig = JSON.parse(process.env.DATABASE);
 
@@ -33,6 +34,7 @@ const MODELS = {
   USER_ROLE: db.user_role,
   SONG: db.song,
   PART: db.part,
+  USER_PART: db.userPart,
   Notification: db.notification,
   User_Notification: db.userNotification,
   DEVICE_TOKEN: db.deviceToken,
@@ -42,6 +44,7 @@ const initializeDatabase = async () => {
   // RelationshipGenerator();
   return await db.sequelize.sync({ force: false }).then(() => {
     console.log("Drop and re-sync db.");
+    DBService.initializaDatabaseTables();
     // DBService.initializaDatabaseTables();
     return;
   });

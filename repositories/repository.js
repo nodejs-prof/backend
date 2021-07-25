@@ -1,7 +1,7 @@
 import { DB } from "../models";
 
 const create = async (model, req) => {
-  return model.upsert(req);
+  return model.create(req);
 };
 
 const upsert = async (model, req) => {

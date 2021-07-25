@@ -1,5 +1,3 @@
-import { MODELS } from ".";
-
 const User = (sequelize, Sequelize) => {
   const user = sequelize.define("user", {
     id: {
@@ -14,6 +12,9 @@ const User = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     password: {
+      type: Sequelize.STRING,
+    },
+    image: {
       type: Sequelize.STRING,
     },
   });

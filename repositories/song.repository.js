@@ -18,9 +18,13 @@ const SongRepository = (logger) => {
 
   const getAllSongs = async () => {
     try {
-      const response = await Repository.findAll(songModel);
-      return response;
+      const dbResult = await songModel.findAll({
+        order: [["createdDateTime", "DESC"]],
+      });
+
+      return dbResult;
     } catch (error) {
+      console.log(error);
       throw new GeneralError(500, "Error occured in getting songs");
     }
   };
