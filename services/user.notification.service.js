@@ -8,7 +8,7 @@ import { PN_ADAPTERS } from "./pushnotification/pnadapter";
 const UserNotificationService = (logger) => {
   const userNotificationRepository = UserNotificationRepository(logger);
 
-  const create = async (notificationId, assignees = [], all = false) => {
+  const create = async (notificationId, assignees = [], all = false, t) => {
     const existingRecords =
       await userNotificationRepository.findByNotificationId(notificationId);
 
@@ -18,7 +18,7 @@ const UserNotificationService = (logger) => {
 
     for (const d of existingRecords) {
       if (!assignees.includes(d.notificationId)) {
-        await userNotificationRepository.deleteById(d.id);
+        await userNotificationRepository.deleteById(d.id, t);
       }
     }
 
@@ -32,7 +32,7 @@ const UserNotificationService = (logger) => {
         status: "PENDING",
       };
 
-      await userNotificationRepository.create(data);
+      await userNotificationRepository.create(data, t);
     }
   };
 

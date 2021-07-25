@@ -10,14 +10,7 @@ const AdminCreatedPNAdapter = (logger) => {
 
     const { user, notification } = data;
 
-    if (
-      !(
-        user &&
-        user.device_token &&
-        user.device_token.length &&
-        user.device_token.length > 0
-      )
-    ) {
+    if (!(user?.device_token?.length > 0)) {
       console.log("user has no device");
       return;
     }
@@ -42,6 +35,8 @@ const AdminCreatedPNAdapter = (logger) => {
           status: "SUCCESS",
         };
       } catch (error) {
+        console.log("ERRRRRRRRROR");
+        console.log(error);
         dbRecord = {
           ...dbRecord,
           status: "FAIL",

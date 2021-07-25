@@ -52,8 +52,8 @@ const PartService = () => {
 
   const deletePart = async (req) => {
     const { id } = req.params;
-    const response = await PartRepository().deletePart(id);
-    return response;
+    await PartRepository().deletePart(id);
+    return { message: "Successfully deleted" };
   };
 
   return {
