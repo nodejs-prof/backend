@@ -10,9 +10,9 @@ const create = handlerWithCurrentUser(
 
     const service = DeviceTokenService(logger);
 
-    const result = await service.create(userDetails, requestBody);
+    await service.create(userDetails, requestBody);
 
-    return {};
+    return { message: "Successflly updated device token" };
   }
 );
 
