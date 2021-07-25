@@ -6,6 +6,7 @@ import { Role } from "./role.model";
 import { Song } from "./song.model";
 import { User } from "./user.model";
 import { UserNotification } from "./user.notification.model";
+import { UserPart } from "./user.part.model";
 import { UserRole } from "./user_role.model";
 
 const ModelInitialization = (sequelize, Sequelize) => {
@@ -17,6 +18,7 @@ const ModelInitialization = (sequelize, Sequelize) => {
   //song models
   const song = Song(sequelize, Sequelize);
   const part = Part(sequelize, Sequelize, song);
+  const userPart = UserPart(sequelize, Sequelize, user, part);
 
   const notification = Notification(sequelize, Sequelize);
   const userNotification = UserNotification(
@@ -33,6 +35,7 @@ const ModelInitialization = (sequelize, Sequelize) => {
     user_role,
     song,
     part,
+    userPart,
     notification,
     userNotification,
     deviceToken,

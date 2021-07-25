@@ -27,14 +27,21 @@ const SongService = () => {
   };
 
   const getSongs = async () => {
-    const songs = await SongRepository().getAllSongs();
-    return songs;
+    const dbResult = await SongRepository().getAllSongs();
+    const response = dbResult.map((item) => ({
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      description: item.description,
+      createdDateTime: item.createdDateTime,
+    }));
+    return response;
   };
 
   const deleteSong = async (req) => {
     const { id } = req.params;
-    const song = await SongRepository().deleteSong(id);
-    return song;
+    await SongRepository().deleteSong(id);
+    return { message: "Song successfully deleted" };
   };
 
   return {
