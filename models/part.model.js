@@ -12,7 +12,7 @@ const Part = (sequelize, Sequelize, song) => {
       type: Sequelize.STRING,
     },
     category: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
     },
     audioURL: {
       type: Sequelize.STRING,

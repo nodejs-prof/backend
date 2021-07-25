@@ -48,7 +48,7 @@ const PartRepository = () => {
     try {
       const dbResult = await partModel.findAll({
         where: { songId },
-        order: [["createdAt", "DESC"]],
+        order: [["category"], ["createdAt", "DESC"]],
         include: [
           {
             model: MODELS.USER_PART,

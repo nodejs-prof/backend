@@ -16,10 +16,11 @@ import { TokenHandler } from "./JWT/token-handler";
 const registerUser = async (req) => {
   const model = MODELS.USER;
   const body = req.body;
-  const { name, email, role, password } = body;
+  const { name, email, role, password, image } = body;
   const request = {
     name,
     email,
+    image,
     password: bcrypt.hashSync(password, 8),
   };
 

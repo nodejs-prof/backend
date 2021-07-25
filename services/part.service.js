@@ -3,6 +3,7 @@ import { PartRepository } from "../repositories/part.repository";
 import { Repository } from "../repositories/repository";
 import { UserPartRepository } from "../repositories/user.part.respository";
 import { NotFoundException } from "../shared/exceptions/NotFoundException";
+import { getPartCategory } from "../shared/utility";
 
 const PartService = () => {
   const createPart = async (req) => {
@@ -21,7 +22,7 @@ const PartService = () => {
     let data = {
       name,
       description,
-      category,
+      category: getPartCategory(category),
       audioURL,
       sheetURL,
       lyrics,
