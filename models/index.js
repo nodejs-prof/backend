@@ -22,6 +22,11 @@ const db = {
   ...ModelInitialization(sequelize, Sequelize),
 };
 
+const DB = {
+  Sequelize,
+  sequelize,
+};
+
 const MODELS = {
   USER: db.user,
   ROLE: db.role,
@@ -41,4 +46,4 @@ const initializeDatabase = async () => {
   });
 };
 
-export { initializeDatabase, MODELS };
+export { initializeDatabase, MODELS, DB };
