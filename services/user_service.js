@@ -85,9 +85,9 @@ const getUser = async (user_id) => {
 
 const retrieveCurrentUser = async (mail) => {
   const user = await UserRepository.findByEmail(mail);
-  const { name, email, user_roles } = user;
+  const { name, email,image, user_roles } = user;
   var roles = user_roles.map((roleObj) => roleObj.role.role);
-  const response = { name, email, roles };
+  const response = { name, email, image,roles };
   return response;
 };
 
