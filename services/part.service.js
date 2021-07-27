@@ -49,13 +49,14 @@ const PartService = () => {
     return response;
   };
 
-  const getPartById = async (id) => {
-    const result = await PartRepository().getByID(id);
+  const getPartById = async (partId) => {
+    const result = await PartRepository().getByID(partId);
     if (!result) {
       throw new NotFoundException(`No part by id ${id}`);
     }
 
     const {
+      id,
       name,
       description,
       category,
