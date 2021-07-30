@@ -1,7 +1,7 @@
 import express from "express";
 // import { DBService } from "./services/db.service";
 var cors = require("cors");
-app.use(cors());
+
 const arg = process.env.ENV || "dev";
 
 const path = `./shared/env-${arg}.json`;
@@ -9,6 +9,8 @@ const path = `./shared/env-${arg}.json`;
 require("dotenv-json-complex")({ path });
 
 var app = express();
+
+app.use(cors());
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
