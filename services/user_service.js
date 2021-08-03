@@ -85,9 +85,9 @@ const getUser = async (user_id) => {
 
 const retrieveCurrentUser = async (mail) => {
   const user = await UserRepository.findByEmail(mail);
-  const { name, email,image, user_roles } = user;
+  const { name, email, image, user_roles } = user;
   var roles = user_roles.map((roleObj) => roleObj.role.role);
-  const response = { name, email, image,roles };
+  const response = { name, email, image, roles };
   return response;
 };
 
@@ -129,7 +129,16 @@ const signinUser = async (req) => {
 };
 
 const getAll = async () => {
-  return await UserRepository.findAll();
+  var dbResult = await UserRepository.findAll();
+  var response = dbResult.map((user) => {
+    const { name, image } = user;
+    return {
+      name,
+      image,
+    };
+  });
+
+  return response;
 };
 
 const Userservice = {

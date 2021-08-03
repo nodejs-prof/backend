@@ -15,8 +15,8 @@ const createUser = async (req, res) => {
 };
 
 const getCurrentUser = handlerWithCurrentUser(
-  async (req, res, next, userDetails,logger) => {
-    logger.log(SEVERITY.INFO,"Request to get current user")
+  async (req, res, next, userDetails, logger) => {
+    logger.log(SEVERITY.INFO, "Request to get current user");
     const { email } = userDetails;
     const currentUser = await Userservice.retrieveCurrentUser(email);
 
@@ -24,10 +24,15 @@ const getCurrentUser = handlerWithCurrentUser(
   }
 );
 
-const signin = handler(async (req, res, next,logger) => {
+const signin = handler(async (req, res, next, logger) => {
   logger.log(SEVERITY.INFO, "Request to login");
 
   const response = await Userservice.signinUser(req);
+  return response;
+});
+
+const getAllUsers = handler(async () => {
+  const response = await Userservice.getAll();
   return response;
 });
 
@@ -35,6 +40,7 @@ const userController = {
   createUser,
   signin,
   getCurrentUser,
+  getAllUsers,
 };
 
 export { userController };
