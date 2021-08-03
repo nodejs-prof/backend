@@ -131,8 +131,9 @@ const signinUser = async (req) => {
 const getAll = async () => {
   var dbResult = await UserRepository.findAll();
   var response = dbResult.map((user) => {
-    const { name, image } = user;
+    const { id, name, image } = user;
     return {
+      id,
       name,
       image,
     };
