@@ -31,7 +31,7 @@ const UserNotificationRepository = (logger) => {
     return result;
   };
 
-  const deleteById = async (id) => {
+  const deleteById = async (id, t) => {
     const result = await MODELS.User_Notification.destroy(
       {
         where: { id: id },
