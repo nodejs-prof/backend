@@ -62,7 +62,7 @@ const view = handlerWithCurrentUser(
 
     const { id: userNotificationId } = req.params;
 
-    const service = UserNotificationService(logger);
+    const service = NotificationService(logger);
 
     const result = await service.view(userDetails, userNotificationId);
 

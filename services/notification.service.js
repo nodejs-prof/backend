@@ -35,9 +35,40 @@ const NotificationService = (logger) => {
     return result;
   };
 
-  const getUserNotifications = (user) => {};
+  const view = async (user, notificationID) => {
+    // const { id } = user;
 
-  return { create };
+    const dbresult =
+      await notificationRepository.findByNotificationIdIncludeUsers(
+        parseInt(notificationID)
+      );
+
+    if (!dbresult) {
+      throw new NotFoundException(
+        `cannot find notification for id : ${userNotificationId}`
+      );
+    }
+
+    const { id, topic, description, createdAt, user_notifications } = dbresult;
+    const assignees = user_notifications.map((item) => ({
+      unID: item.id,
+      userID: item.user.id,
+      name: item.user.name,
+      image: item.user.image,
+    }));
+
+    const result = {
+      id,
+      topic,
+      description,
+      createdAt,
+      assignees,
+    };
+
+    return result;
+  };
+
+  return { create, view };
 };
 
 export { NotificationService };
