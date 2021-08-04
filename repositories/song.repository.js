@@ -16,10 +16,28 @@ const SongRepository = (logger) => {
     }
   };
 
-  const getAllSongs = async () => {
+  const getAllSongs = async (pagination) => {
+    const { page, size } = pagination;
+    const skip = page * size;
+
     try {
       const dbResult = await songModel.findAll({
-        order: [["createdDateTime", "DESC"]],
+        order: [["updatedAt", "DESC"]],
+        offset: skip,
+        limit: size,
+      });
+
+      return dbResult;
+    } catch (error) {
+      console.log(error);
+      throw new GeneralError(500, "Error occured in getting songs");
+    }
+  };
+
+  const getSongsbyId = async (id) => {
+    try {
+      const dbResult = await songModel.findOne({
+        where: { id },
       });
 
       return dbResult;
@@ -38,7 +56,7 @@ const SongRepository = (logger) => {
     }
   };
 
-  return { create, getAllSongs, deleteSong };
+  return { create, getAllSongs, deleteSong, getSongsbyId };
 };
 
 export { SongRepository };

@@ -3,6 +3,7 @@ import { Repository } from "../repositories/repository";
 import moment from "moment";
 import { SongRepository } from "../repositories/song.repository";
 import { handler } from "./pre-request-handler";
+import { NotFoundException } from "../shared/exceptions/NotFoundException";
 
 const SongService = () => {
   const model = MODELS.SONG;
@@ -26,15 +27,32 @@ const SongService = () => {
     return createdSong[0];
   };
 
-  const getSongs = async () => {
-    const dbResult = await SongRepository().getAllSongs();
+  const getSongs = async (pagination) => {
+    const dbResult = await SongRepository().getAllSongs(pagination);
     const response = dbResult.map((item) => ({
       id: item.id,
       name: item.name,
       image: item.image,
       description: item.description,
-      createdDateTime: item.createdDateTime,
+      updatedAt: item.updatedAt,
     }));
+    return response;
+  };
+
+  const getSongsbyId = async (id) => {
+    const dbResult = await SongRepository().getSongsbyId(id);
+
+    if (!dbResult) {
+      throw new NotFoundException(`Song not for id : ${id}`);
+    }
+
+    const response = {
+      id: dbResult.id,
+      name: dbResult.name,
+      image: dbResult.image,
+      description: dbResult.description,
+      updatedAt: dbResult.updatedAt,
+    };
     return response;
   };
 
@@ -48,6 +66,7 @@ const SongService = () => {
     createSong,
     getSongs,
     deleteSong,
+    getSongsbyId,
   };
 };
 
