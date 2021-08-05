@@ -42,6 +42,39 @@ const UserNotificationRepository = (logger) => {
     return result;
   };
 
+  const findAll = async (pagination) => {
+    const { page, size } = pagination;
+    const skip = page * size;
+
+    try {
+      return await MODELS.Notification.findAll({
+        offset: skip,
+        limit: size,
+        include: [
+          {
+            model: MODELS.User_Notification,
+            as: "user_notifications",
+            include: [
+              {
+                model: MODELS.USER,
+                as: "user",
+              },
+            ],
+          },
+        ],
+        order: [["lastUpdatedDateTime", "DESC"]],
+      });
+    } catch (error) {
+      console.log(error);
+      logger.log(SEVERITY.ERROR, "Error occured in getting all notifications");
+      logger.log(SEVERITY.ERROR, error);
+
+      throw new BadRequestException(
+        "Error occured in getting user notifications"
+      );
+    }
+  };
+
   const findAllByUserId = async (id, pagination) => {
     const { page, size } = pagination;
     const skip = page * size;
@@ -185,6 +218,7 @@ const UserNotificationRepository = (logger) => {
     findByUserNotificationId,
     findAllPnSendIsFalse,
     updatePnSend,
+    findAll,
   };
 };
 

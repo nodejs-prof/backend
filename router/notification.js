@@ -16,6 +16,12 @@ router.get(
 );
 
 router.get(
+  "/alls",
+  AuthJWTFilter.authorize(),
+  NoificationController.getAllNotification
+);
+
+router.get(
   "/unseen-count",
   AuthJWTFilter.authorize(),
   NoificationController.getUserUnSeenNotificationsCount

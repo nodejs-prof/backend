@@ -36,6 +36,26 @@ const UserNotificationService = (logger) => {
     }
   };
 
+  const getAllNotifications = async (pagination) => {
+    const dbResults = await userNotificationRepository.findAll(pagination);
+
+    const result = dbResults.map((item) => ({
+      id: item.id,
+      userNotificationId: item.user_notifications.id,
+      topic: item.topic,
+      description: item.description,
+      createdDateTime: item.createdDateTime,
+      seen: item.seen,
+      assignees: item.user_notifications.map((item) => ({
+        id: item.user.id,
+        name: item.user.name,
+        image: item.user.image,
+      })),
+    }));
+
+    return result;
+  };
+
   const getUserNotifications = async (user, pagination) => {
     const { id } = user;
 
@@ -117,6 +137,7 @@ const UserNotificationService = (logger) => {
     view,
     getAllPnSendFalseRecords,
     updatePNSendStatus,
+    getAllNotifications,
   };
 };
 
