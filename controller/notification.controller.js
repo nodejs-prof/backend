@@ -18,6 +18,20 @@ const create = handlerWithCurrentUser(
   }
 );
 
+const getAllNotification = handlerWithCurrentUser(
+  async (req, res, next, userDetails, logger) => {
+    logger.log(SEVERITY.INFO, "Request to get All noifications");
+
+    const pagination = getPagination(req);
+
+    const service = UserNotificationService(logger);
+
+    const result = await service.getAllNotifications(pagination);
+
+    return result;
+  }
+);
+
 const getAllUserNotification = handlerWithCurrentUser(
   async (req, res, next, userDetails, logger) => {
     logger.log(SEVERITY.INFO, "Request to get All user noification");
@@ -76,6 +90,7 @@ const NoificationController = {
   getUserUnSeenNotificationsCount,
   seenAllUserNotifications,
   view,
+  getAllNotification,
 };
 
 export { NoificationController };
