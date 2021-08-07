@@ -29,10 +29,10 @@ const Event = (sequelize, Sequelize) => {
       type: Sequelize.STRING(800),
     },
     isHidden: {
-      type: Sequelize.DATE,
+      type: Sequelize.BOOLEAN,
     },
     hiddenDate: {
-      type: Sequelize.BOOLEAN,
+      type: Sequelize.DATE,
     },
   });
 

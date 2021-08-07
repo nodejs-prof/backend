@@ -1,1 +1,2 @@
-import "./pushnotification.schedular";
+// import "./pushnotification.schedular";
+import "./eventhide.scheduler";
