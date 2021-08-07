@@ -1,3 +1,4 @@
+import moment from "moment";
 import { EventRepository } from "../repositories/event.repository";
 import { NotFoundException } from "../shared/exceptions/NotFoundException";
 
@@ -15,6 +16,7 @@ const EventService = (logger) => {
       arrivalAt,
       type,
       link,
+      isHidden: false,
     };
     if (id) {
       data = { ...data, id };
@@ -46,7 +48,30 @@ const EventService = (logger) => {
     return { message: `successfully deleted event id : ${id}` };
   };
 
-  return { create, getEventById, getAllEvents, deleteById };
+  const updateEventWithHide = async (date) => {
+    console.log(date);
+    const res = await eventRepository.hideEvents(date);
+    console.log("*********************************************");
+    console.log(res);
+    return res;
+  };
+
+  const getEventsByDate = async (date) => {
+    console.log(moment().toDate());
+    const res = await eventRepository.getByDate(date);
+    console.log("*********************************************");
+    console.log(res);
+    return res;
+  };
+
+  return {
+    create,
+    getEventById,
+    getAllEvents,
+    deleteById,
+    updateEventWithHide,
+    getEventsByDate,
+  };
 };
 
 export { EventService };

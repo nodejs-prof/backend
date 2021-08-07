@@ -1,7 +1,9 @@
+import moment from "moment";
 import { MODELS } from "../models";
 import { GeneralError } from "../shared/exceptions/GeneralError";
 import { SEVERITY } from "../shared/logger";
 import { Repository } from "./repository";
+const { Op } = require("sequelize");
 
 const EventRepository = (logger) => {
   const create = async (data) => {
@@ -51,7 +53,47 @@ const EventRepository = (logger) => {
     }
   };
 
-  return { create, findBy, findAll, deleteById };
+  const hideEvents = async (date) => {
+    const format2 = "YYYY-MM-DD HH:mm:ss";
+    try {
+      return await MODELS.EVENT.update(
+        {
+          isHidden: true,
+          hiddenDate: new Date().toISOString(),
+        },
+        {
+          where: {
+            isHidden: false,
+            eventAt: {
+              [Op.lt]: moment(date).format(format2),
+            },
+          },
+        }
+      );
+    } catch (error) {
+      console.log("Error occured when hiding old events");
+      console.log(error);
+      throw new GeneralError(500, "Error occured when hiding old events");
+    }
+  };
+
+  const getByDate = async () => {
+    try {
+      return await MODELS.EVENT.findAll({
+        where: {
+          eventAt: {
+            [Op.lt]: moment().toDate(),
+          },
+        },
+      });
+    } catch (error) {
+      console.log("Error occured when getting old events");
+      console.log(error);
+      throw new GeneralError(500, "Error occured when getting old events");
+    }
+  };
+
+  return { create, findBy, findAll, deleteById, hideEvents, getByDate };
 };
 
 export { EventRepository };
