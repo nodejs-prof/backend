@@ -6,6 +6,7 @@ const DBConfig = JSON.parse(process.env.DATABASE);
 
 const sequelize = new Sequelize(DBConfig.DB, DBConfig.USER, DBConfig.PASSWORD, {
   host: DBConfig.HOST,
+  port: DBConfig.PORT,
   dialect: DBConfig.dialect,
   operatorsAliases: false,
 

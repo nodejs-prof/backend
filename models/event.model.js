@@ -28,6 +28,12 @@ const Event = (sequelize, Sequelize) => {
     link: {
       type: Sequelize.STRING(800),
     },
+    isHidden: {
+      type: Sequelize.DATE,
+    },
+    hiddenDate: {
+      type: Sequelize.BOOLEAN,
+    },
   });
 
   return event;

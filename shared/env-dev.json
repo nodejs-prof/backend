@@ -3,10 +3,11 @@
   "PORT": 3000,
   "LOG_LEVEL": "DEBUG",
   "DATABASE": {
-    "HOST": "vocalavenue.cgum9yn2jezz.us-east-2.rds.amazonaws.com",
-    "USER": "va_admin",
-    "PASSWORD": "VA#M0ra#SL#1",
-    "DB": "va_db_dev",
+    "HOST": "204.13.155.96",
+    "PORT": 3307,
+    "USER": "root",
+    "PASSWORD": "UEA1NXcwckRfVmFfcFc",
+    "DB": "vocal_avenue_db",
     "dialect": "mysql",
     "pool": {
       "max": 5,
