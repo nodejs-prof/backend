@@ -36,8 +36,8 @@ const EventService = (logger) => {
     return result;
   };
 
-  const getAllEvents = async (pagination) => {
-    const result = await eventRepository.findAll(pagination);
+  const getAllEvents = async (pagination, orderBy) => {
+    const result = await eventRepository.findAll(pagination, orderBy);
 
     return result;
   };

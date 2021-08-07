@@ -29,13 +29,16 @@ const EventRepository = (logger) => {
     }
   };
 
-  const findAll = async (pagination) => {
+  const findAll = async (pagination, orderBy, isHidden = false) => {
     const { page, size } = pagination;
 
     return MODELS.EVENT.findAll({
+      where: {
+        isHidden,
+      },
       offset: page * size,
       limit: size,
-      order: [["updatedAt", "DESC"]],
+      order: [[orderBy, "DESC"]],
     });
   };
 
