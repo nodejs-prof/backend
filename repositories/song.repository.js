@@ -22,7 +22,7 @@ const SongRepository = (logger) => {
 
     try {
       const dbResult = await songModel.findAll({
-        order: [["updatedAt", "DESC"]],
+        order: [["name", "ASC"]],
         offset: skip,
         limit: size,
       });
