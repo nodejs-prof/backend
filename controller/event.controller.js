@@ -29,21 +29,19 @@ const getAll = handler(async (req, res, next, logger) => {
   const pagination = getPagination(req);
 
   const service = EventService(logger);
-  const response = await service.getAllEvents(pagination, 'updatedAt');
+  const response = await service.getAllEvents(pagination);
   return response;
 });
 
-
-const getAllSortedByEvent = handler(async (req, res, next, logger) => {
-  logger.log(SEVERITY.INFO, "Request to get all events");
+const getAllSortedByEventDate = handler(async (req, res, next, logger) => {
+  logger.log(SEVERITY.INFO, "Request to get all events sorted by event Date");
 
   const pagination = getPagination(req);
 
   const service = EventService(logger);
-  const response = await service.getAllEvents(pagination, 'eventAt');
+  const response = await service.getAllEventsByAscEventDate(pagination);
   return response;
 });
-
 
 const deleteById = handler(async (req, res, next, logger) => {
   logger.log(SEVERITY.INFO, "Request to get delete events");
@@ -60,7 +58,7 @@ const EventController = {
   getById,
   getAll,
   deleteById,
-  getAllSortedByEvent
+  getAllSortedByEventDate,
 };
 
 export { EventController };

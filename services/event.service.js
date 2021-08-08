@@ -36,8 +36,14 @@ const EventService = (logger) => {
     return result;
   };
 
-  const getAllEvents = async (pagination, orderBy) => {
-    const result = await eventRepository.findAll(pagination, orderBy);
+  const getAllEvents = async (pagination) => {
+    const result = await eventRepository.findAll(pagination);
+
+    return result;
+  };
+
+  const getAllEventsByAscEventDate = async (pagination) => {
+    const result = await eventRepository.findAllASCEventDate(pagination);
 
     return result;
   };
@@ -49,18 +55,13 @@ const EventService = (logger) => {
   };
 
   const updateEventWithHide = async (date) => {
-    console.log(date);
     const res = await eventRepository.hideEvents(date);
-    console.log("*********************************************");
-    console.log(res);
     return res;
   };
 
   const getEventsByDate = async (date) => {
     console.log(moment().toDate());
     const res = await eventRepository.getByDate(date);
-    console.log("*********************************************");
-    console.log(res);
     return res;
   };
 
@@ -71,6 +72,7 @@ const EventService = (logger) => {
     deleteById,
     updateEventWithHide,
     getEventsByDate,
+    getAllEventsByAscEventDate,
   };
 };
 

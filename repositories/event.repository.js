@@ -29,7 +29,7 @@ const EventRepository = (logger) => {
     }
   };
 
-  const findAll = async (pagination, orderBy, isHidden = false) => {
+  const findAll = async (pagination, isHidden = false) => {
     const { page, size } = pagination;
 
     return MODELS.EVENT.findAll({
@@ -38,7 +38,20 @@ const EventRepository = (logger) => {
       },
       offset: page * size,
       limit: size,
-      order: [[orderBy, "DESC"]],
+      order: [["updatedAt", "DESC"]],
+    });
+  };
+
+  const findAllASCEventDate = async (pagination, isHidden = false) => {
+    const { page, size } = pagination;
+
+    return MODELS.EVENT.findAll({
+      where: {
+        isHidden,
+      },
+      offset: page * size,
+      limit: size,
+      order: [["eventAt", "ASC"]],
     });
   };
 
@@ -53,19 +66,23 @@ const EventRepository = (logger) => {
     }
   };
 
-  const hideEvents = async (date) => {
+  const hideEvents = async () => {
     const format2 = "YYYY-MM-DD HH:mm:ss";
+    const d = moment(new Date().toISOString())
+      .utcOffset("+0530")
+      .format(format2);
+    console.log(d);
     try {
       return await MODELS.EVENT.update(
         {
           isHidden: true,
-          hiddenDate: new Date().toISOString(),
+          hiddenDate: d,
         },
         {
           where: {
             isHidden: false,
             eventAt: {
-              [Op.lt]: moment(date).format(format2),
+              [Op.lt]: d,
             },
           },
         }
@@ -93,7 +110,15 @@ const EventRepository = (logger) => {
     }
   };
 
-  return { create, findBy, findAll, deleteById, hideEvents, getByDate };
+  return {
+    create,
+    findBy,
+    findAll,
+    deleteById,
+    hideEvents,
+    getByDate,
+    findAllASCEventDate,
+  };
 };
 
 export { EventRepository };
