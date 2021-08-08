@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const Event = (sequelize, Sequelize) => {
   const event = sequelize.define("events", {
     id: {
