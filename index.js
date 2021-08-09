@@ -27,7 +27,7 @@ const { Logger, SEVERITY } = require("./shared/logger");
 const { initializeDatabase } = require("./models/index");
 
 initializeDatabase().then(() => {
-  require("./schedulers");
+  // require("./schedulers");
 });
 
 app.listen(process.env.PORT, () => {

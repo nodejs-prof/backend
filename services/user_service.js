@@ -12,6 +12,7 @@ import { UserRoleService } from "./user_role.service";
 import jwt from "jsonwebtoken";
 import { secretCode } from "../config/auth.config";
 import { TokenHandler } from "./JWT/token-handler";
+import CognitoService from "./cognito/CognitoService";
 
 const registerUser = async (req) => {
   const model = MODELS.USER;
@@ -48,6 +49,24 @@ const registerUser = async (req) => {
   };
   return response;
 };
+
+//**************************** */
+
+const registerUserV2 = async (req) => {
+  const model = MODELS.USER;
+  const body = req.body;
+  const { name, email, role, password, image } = body;
+
+  const result = await CognitoService().registerUser({
+    name,
+    email,
+    password,
+  });
+
+  return result;
+};
+
+//******************************* */
 
 const validateRole = async (role) => {
   const role_response = await RoleService.findRole(role);
@@ -148,6 +167,7 @@ const Userservice = {
   signinUser,
   retrieveCurrentUser,
   getAll,
+  registerUserV2,
 };
 
 // @auditMethod()

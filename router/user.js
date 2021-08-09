@@ -4,8 +4,8 @@ import { AuthJWTFilter } from "../middleware/authJWT";
 
 var router = Router();
 
-router.post("/create", userController.createUser);
-router.get("/all", AuthJWTFilter.authorize({roles = ['ADMIN']}), userController.getAllUsers);
+router.post("/create", userController.createUserWithCognito);
+router.get("/all", AuthJWTFilter.authorize(), userController.getAllUsers);
 
 router.get(
   "/account",

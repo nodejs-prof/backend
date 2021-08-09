@@ -22,5 +22,10 @@
       "BASE_URL": "https://fcm.googleapis.com/fcm/send",
       "NOTIFICATION_IMAGE": "https://firebasestorage.googleapis.com/v0/b/falldetection-b32b2.appspot.com/o/a%2F055c9f86-48c3-49e6-accb-44c3ffbc7b25.jpg?alt=media&token=9ba200a2-581f-426c-8a1c-7da7d37390d5"
     }
-  }
+  },
+
+  "POOL_ID": "us-east-1_0StM0Tmux",
+  "CLIENT_ID": "6sh3r50vh37gfukbq0tjicahkm",
+  "REGION": "us-east-1",
+  "API_VERSION": "2016-04-18"
 }

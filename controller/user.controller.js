@@ -14,6 +14,12 @@ const createUser = async (req, res) => {
   res.send(JSON.stringify(response));
 };
 
+const createUserWithCognito = async (req, res) => {
+  logger.log(SEVERITY.INFO, "Started saving user");
+  const response = await Userservice.registerUserV2(req, res);
+  res.send(JSON.stringify(response));
+};
+
 const getCurrentUser = handlerWithCurrentUser(
   async (req, res, next, userDetails, logger) => {
     logger.log(SEVERITY.INFO, "Request to get current user");
@@ -41,6 +47,7 @@ const userController = {
   signin,
   getCurrentUser,
   getAllUsers,
+  createUserWithCognito
 };
 
 export { userController };
