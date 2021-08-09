@@ -14,7 +14,7 @@ export const getPagination = (req) => {
 };
 
 export const getPartCategory = (category) => {
-  if (Object.values(PART_CATEGORY).includes(category)) {
+  if (Object.values(PART_CATEGORY).includes(parseInt(category))) {
     return category;
   }
 
