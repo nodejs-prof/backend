@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { secretCode } from "../config/auth.config";
 import { UnauthorizedException } from "../shared/exceptions/UnauthorizedException";
 
-const authorize = (role) => {
+const authorize = ({ roles = [] }) => {
   return async (req, res, next) => {
     let token = req.headers.authorization;
     // console.log("I am at authorise");
@@ -11,8 +11,18 @@ const authorize = (role) => {
       return next(new Forbiddenexception("Token not found"));
     }
 
-    return await verification(token, next);
+    const decoded = await verification(token, next);
+
+    validateRoles(roles, decoded.roles);
+
+    return next();
   };
+};
+
+const validateRoles = (expectedRoles = [], userRoles = []) => {
+  if (expectedRoles.length === 0) {
+    return;
+  }
 };
 
 const verification = async (token, next) => {
@@ -20,8 +30,13 @@ const verification = async (token, next) => {
     if (err) {
       return next(new UnauthorizedException("Unauthorized user!"));
     }
+
+    return {
+      email: decoded.email,
+      roles: decoded.roles,
+    };
     // req.email = decoded.email;
-    return next();
+    // return next();
   });
 };
 
