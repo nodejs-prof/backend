@@ -9,8 +9,7 @@ router.get("/all", AuthJWTFilter.authorize(), userController.getAllUsers);
 
 router.get(
   "/account",
-  AuthJWTFilter.authorize(),
-  userController.getCurrentUser
+  userController.getCurrentUserV2
 );
 
 export default router;

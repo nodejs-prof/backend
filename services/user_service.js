@@ -53,15 +53,34 @@ const registerUser = async (req) => {
 //**************************** */
 
 const registerUserV2 = async (req) => {
-  const model = MODELS.USER;
   const body = req.body;
-  const { name, email, role, password, image } = body;
+  const { name, email, role = [], password, image } = body;
 
-  const result = await CognitoService().registerUser({
-    name,
-    email,
-    password,
-  });
+  await CognitoService()
+    .registerUser({
+      name,
+      email,
+      password,
+      role: role.map((e) => `${e}*`),
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new BadRequestException(err);
+    });
+
+  //save user in local db
+
+  return { msg: "Registered successfully" };
+};
+
+//******************************* */
+
+//**************************** */
+
+const signInV2 = async (req) => {
+  const { email, password } = req.body;
+
+  const result = await CognitoService().login({ email, password });
 
   return result;
 };
@@ -108,6 +127,11 @@ const retrieveCurrentUser = async (mail) => {
   var roles = user_roles.map((roleObj) => roleObj.role.role);
   const response = { name, email, image, roles };
   return response;
+};
+
+const retrieveCurrentUserV2 = async (token) => {
+  const result = CognitoService().verifyToken(token);
+  return result;
 };
 
 const signinUser = async (req) => {
@@ -168,6 +192,8 @@ const Userservice = {
   retrieveCurrentUser,
   getAll,
   registerUserV2,
+  signInV2,
+  retrieveCurrentUserV2,
 };
 
 // @auditMethod()
