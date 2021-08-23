@@ -1,5 +1,3 @@
-import { NotificationRepository } from "../repositories/notification.repository";
-import moment from "moment";
 import { UserNotificationRepository } from "../repositories/user.notification.repository";
 import { NotFoundException } from "../shared/exceptions/NotFoundException";
 import { Userservice } from "./user_service";
@@ -17,9 +15,7 @@ const UserNotificationService = (logger) => {
     }
 
     for (const d of existingRecords) {
-      if (!assignees.includes(d.notificationId)) {
         await userNotificationRepository.deleteById(d.id, t);
-      }
     }
 
     for (const d of assignees) {

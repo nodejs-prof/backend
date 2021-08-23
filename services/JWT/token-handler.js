@@ -4,7 +4,7 @@ import { BadRequestException } from "../../shared/exceptions/BadRequestException
 
 const generateToken = async (userData) => {
   const token = await jwt.sign(userData, secretCode.secret, {
-    expiresIn: 86400, // 24 hours
+    expiresIn: 2592000, // 24 hours * 30
   });
 
   return token;
